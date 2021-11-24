@@ -7,12 +7,18 @@ class Ship {
       this.hullIntegrity.push(true);
     }    
   }
+  
   hit( hitLocation ) {
-
+    // should return true if hit succeeds otherwise false
+    if(this.hullIntegrity[hitLocation-1]){
+      return !(this.hullIntegrity[hitLocation-1] = false);
+    }    
+    return false;
   }
+
   isSunk(){
-    return this.hullIntegrity.indexOf(true) < 0;
     console.log(this.hullIntegrity);
+    return this.hullIntegrity.indexOf(true) < 0;    
   }
 }
 

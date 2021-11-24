@@ -17,8 +17,7 @@ class Ship {
   }
 
   isSunk(){
-    console.log(this.hullIntegrity);
-    return this.hullIntegrity.indexOf(true) < 0;    
+    return this.hullIntegrity.indexOf(true) == -1;    
   }
 }
 

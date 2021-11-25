@@ -10,9 +10,9 @@ test("a ship that is hit registers damage", ()=>{
 });
 
 test("a ship that has taken all hits is sunk", ()=>{
-  const testShip2 = new Ship(1);
-  testShip2.hit(1);  
-  expect(testShip2.isSunk()).toBe(true);  
+  const testShip = new Ship(1);
+  testShip.hit(1);  
+  expect(testShip.isSunk()).toBe(true);  
 });
 
 test("a ship that has taken hits, but not all hits is not sunk", ()=>{

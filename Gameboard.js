@@ -1,3 +1,4 @@
+const Ship = require("./Ship");
 
 class Gameboard {
   constructor() {
@@ -23,6 +24,11 @@ class Gameboard {
     }
     return  target !== 0;    
   }
+  placeShip(row, column, size, orientation = 'horizontal') {
+    // const ship = new Ship(size);
+    this.gameboard[4][4] = true;    
+  }
+  
 }
 
 module.exports = Gameboard;

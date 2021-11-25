@@ -25,8 +25,17 @@ class Gameboard {
     return  target !== 0;    
   }
   placeShip(row, column, size, orientation = 'horizontal') {
-    // const ship = new Ship(size);
-    this.gameboard[4][4] = true;    
+    const ship = new Ship(size);
+    if (orientation == 'horizontal') {
+      for(let i = 0; i < size; i++) {
+        this.gameboard[row][column+i] = ship.hullIntegrity[0];
+      }
+    }else{
+      for(let i = 0; i < size; i++) {
+        this.gameboard[row+i][column] = ship.hullIntegrity[0];
+      }
+    }
+    console.log(this.gameboard);   
   }
   
 }

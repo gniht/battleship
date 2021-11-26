@@ -19,8 +19,9 @@ test("a ship properly places vertically (and can receive an attack, to verify pl
 });
 
 test("an attack on a previously hit cell returns -1", () => {
-  // works, but need to be able to place ships
   const gameboard = new Gameboard();
+  gameboard.placeShip(4, 2, 3);
+  gameboard.receiveAttack(4, 4);
   expect(gameboard.receiveAttack(4, 4)).toBe(-1);
 });
 

@@ -18,10 +18,15 @@ class Gameboard {
   receiveAttack(row, column) {
     const target = this.gameboard[row][column];
 
-    if(target == -1){
+    if(target === false){
       //do something to prevent firing at spots that have already been hit?      
       return -1;
     }
+
+    if(target){
+      this.gameboard[row][column] = false;
+    }
+
     return  target !== 0;    
   }
   placeShip(row, column, size, orientation = 'horizontal') {

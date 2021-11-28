@@ -1,4 +1,3 @@
-const { TestWatcher } = require("@jest/core");
 const Gameboard = require("./Gameboard");
 
 test("an attack on an empty cell returns false", () => {

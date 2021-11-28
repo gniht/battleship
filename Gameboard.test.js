@@ -25,5 +25,12 @@ test("an attack on a previously hit cell returns -1", () => {
   expect(gameboard.receiveAttack(4, 4)).toBe(-1);
 });
 
+test("", () => {
+  const gameboard = new Gameboard();
+  gameboard.placeShip(4, 2, "cruiser");
+  gameboard.receiveAttack(4, 4);
+  expect(gameboard.receiveAttack(4, 4)).toBe(-1);
+});
+
 
 

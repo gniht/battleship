@@ -10,14 +10,15 @@ class Ship {
   
   hit( hitLocation ) {
     // should return true if hit succeeds otherwise false
-    if(this.hullIntegrity[hitLocation-1]){
-      return !(this.hullIntegrity[hitLocation-1] = false);
+    if(this.hullIntegrity.includes(hitLocation)){
+      this.hullIntegrity[this.hullIntegrity.indexOf(hitLocation)] = false;
+      return true;
     }    
     return false;
   }
 
-  isSunk(){
-    return this.hullIntegrity.indexOf(true) == -1;    
+  isSunk(){    
+    return !this.hullIntegrity.includes(true);    
   }
 }
 

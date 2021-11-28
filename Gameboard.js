@@ -33,21 +33,27 @@ class Gameboard {
 
     if(target){
       this.gameboard[row][column] = false;
+      for(let ship in this.ships){        
+        if(this.ships[ship].hullIntegrity.includes([row, column])){
+          console.log(`Direct hit on enemy ${ship}!`);
+        }
+      }
     }
 
     return  target !== 0;    
   }
   placeShip(row, column, shipName, orientation = 'horizontal') {
-    const ship = this.ships[shipName];
-    console.log(ship);
+    const ship = this.ships[shipName];    
     const size = this.ships[shipName].size;
     if (orientation == 'horizontal') {
       for(let i = 0; i < size; i++) {
         this.gameboard[row][column+i] = ship.hullIntegrity[i];
+        ship.hullIntegrity[i] = [row, column+i];
       }
     }else{
       for(let i = 0; i < size; i++) {
         this.gameboard[row+i][column] = ship.hullIntegrity[i];
+        ship.hullIntegrity[i] = [row+i, column];
       }
     }   
   }  

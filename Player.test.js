@@ -9,3 +9,8 @@ test("can place all ships", () => {
   const player = new Player();
   expect(player.placeAllShips()).toBe(true);
 });
+
+// test("can take a turn", () => {
+//   const player = new Player();
+//   expect(player.makeMove()).toBe(true);
+// });

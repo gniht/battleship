@@ -6,12 +6,13 @@ class Player {
     this.gameboard = new Gameboard();
   }
 
-  placeAllShips(){
+  placeAllShips(){    
+    for(let ship in this.gameboard.ships){      
+      //this.gameboard.placeShip(row, column, ship.name, ship.orientation); 
+    }
     return true;    
   }
 
-  makeMove() {    
-  }
 }
 
 module.exports = Player;

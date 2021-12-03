@@ -6,13 +6,25 @@ class Player {
     this.gameboard = new Gameboard();
   }
 
-  placeAllShips(){    
-    for(let ship in this.gameboard.ships){      
-      //this.gameboard.placeShip(row, column, ship.name, ship.orientation); 
+  placeAllShips(){
+    let fleetDirection = Math.floor(Math.random()*2) ? 'vertical' : 'horizontal';
+    let row = 0;
+    let column = 0;
+    let count = 0;   
+    for(let ship in this.gameboard.ships){
+      const currentShip = this.gameboard.ships[ship];
+
+      if(fleetDirection = 'vertical'){
+        row = Math.floor(Math.random()*(currentShip.size));
+        column = Math.floor(Math.random()*2*count);
+      }else{
+        row = Math.floor(Math.random()*2*count);
+        column = Math.floor(Math.random()*(currentShip.size));       
+      }     
+      this.gameboard.placeShip(row, column, ship, fleetDirection); 
     }
     return true;    
   }
-
 }
 
 module.exports = Player;

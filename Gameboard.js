@@ -47,14 +47,22 @@ class Gameboard {
     return  target !== 0;    
   }
   placeShip(row, column, shipName, orientation = 'horizontal') {
-    const ship = this.ships[shipName];    
-    const size = this.ships[shipName].size;
+    const ship = this.ships[shipName];       
+    const size = ship.size;
+    
     if (orientation == 'horizontal') {
-      for(let i = 0; i < size; i++) {
+
+      if(column + size > 9){ //ensure enough columns to fit ship        
+        return false;
+      }
+      for(let i = 0; i < size; i++) {        
         this.gameboard[row][column+i] = ship.hullIntegrity[i];
         ship.hullIntegrity[i] = [row, column+i];
       }
     }else{
+      if(row + size > 9){ //ensure enough rows to fit ship        
+        return false;
+      }
       for(let i = 0; i < size; i++) {
         this.gameboard[row+i][column] = ship.hullIntegrity[i];
         ship.hullIntegrity[i] = [row+i, column];

@@ -5,7 +5,7 @@ test("a new player without a name is created with default name", () => {
   expect(player.name).toBe("HAL 9000");
 });
 
-test("can place all ships", () => {
+test("all ships are placed before game starts", () => {
   const player = new Player();
   expect(player.placeAllShips()).toBe(true);
 });

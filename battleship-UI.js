@@ -8,4 +8,5 @@ menu.classList.add("menu");
 UI.appendChild(menu);
 
 
-module.exports = battleShipUI;
+
+

@@ -25,6 +25,9 @@ class Player {
     }
     return true;    
   }
+  makeAttack(){
+    return true;    
+  }
 }
 
 module.exports = Player;

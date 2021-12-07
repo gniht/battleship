@@ -25,7 +25,8 @@ class Player {
     }
     return true;    
   }
-  makeAttack(){
+  makeAttack(targetLocation){
+    
     return true;    
   }
 }

@@ -1,4 +1,4 @@
-const Player = require("./Player");
+// const Player = require("./Player");
 
 const UI = document.querySelector('.ui');
 const menu = document.createElement("div");

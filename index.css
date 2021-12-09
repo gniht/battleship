@@ -10,6 +10,8 @@
 }
 
 .menu {
+  display: flex;
+  justify-content: center;
   background-color: black;
   height: 30px;
   width: 100vw;

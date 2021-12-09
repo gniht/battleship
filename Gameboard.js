@@ -40,6 +40,7 @@ class Gameboard {
       this.gameboard[row][column] = false;
       for(let ship in this.ships){        
         if(this.ships[ship].hullIntegrity.includes([row, column])){
+          this.ships[ship].hit([row, column])
           console.log(`Direct hit on enemy ${ship}!`);
         }
       }
@@ -52,7 +53,7 @@ class Gameboard {
     
     if (orientation == 'horizontal') {
 
-      if(column + size > 9){ //ensure enough columns to fit ship        
+      if(column + size > 10){ //ensure enough columns to fit ship        
         return false;
       }
       for(let i = 0; i < size; i++) {        
@@ -60,7 +61,7 @@ class Gameboard {
         ship.hullIntegrity[i] = [row, column+i];
       }
     }else{
-      if(row + size > 9){ //ensure enough rows to fit ship        
+      if(row + size > 10){ //ensure enough rows to fit ship        
         return false;
       }
       for(let i = 0; i < size; i++) {

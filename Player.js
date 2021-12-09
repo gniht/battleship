@@ -1,4 +1,4 @@
-const Gameboard = require("./Gameboard.js");
+import Gameboard from "./Gameboard";
 
 class Player {
   constructor( name = "HAL 9000") {
@@ -31,4 +31,4 @@ class Player {
   }
 }
 
-module.exports = Player;
+export default Player;

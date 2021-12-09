@@ -1,4 +1,5 @@
-const Ship = require('./Ship.js');
+import Ship from "./Ship";
+// const Ship = require('./Ship.js');
 
 test("a new ship isSunk?", ()=>{  
   expect(new Ship(5).isSunk()).toBe(false);

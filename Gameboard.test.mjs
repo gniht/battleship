@@ -1,4 +1,4 @@
-const Gameboard = require("./Gameboard");
+import Gameboard from "./Gameboard";
 
 test("an attack on an empty cell returns false", () => {
   const gameboard = new Gameboard();

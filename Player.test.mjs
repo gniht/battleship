@@ -1,4 +1,4 @@
-const Player = require("./Player.js");
+import Player from "./Player";
 
 test("a new player without a name is created with default name", () => {
   const player = new Player();

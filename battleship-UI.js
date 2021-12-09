@@ -14,8 +14,10 @@ enemyGrid.classList.add("enemy-grid");
 const playerGrid = document.createElement("div");
 playerGrid.classList.add("player-grid");
 
-const enemy = new Player();
+// const enemy = new Player();
+// enemy.placeAllShips();
 const player = new Player(prompt("enter name"));
+player.placeAllShips();
 console.log(player);
 
 

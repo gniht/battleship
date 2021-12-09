@@ -15,12 +15,13 @@ class Player {
       const currentShip = this.gameboard.ships[ship];
 
       if(fleetDirection = 'vertical'){
-        row = Math.floor(Math.random()*(currentShip.size));
-        column = Math.floor(Math.random()*2*count);
+        row = Math.floor(Math.random()*(9-currentShip.size));// should be 9-currenShip.size?
+        column = count;        
       }else{
-        row = Math.floor(Math.random()*2*count);
-        column = Math.floor(Math.random()*(currentShip.size));       
-      }     
+        row = count;
+        column = Math.floor(Math.random()*(9-currentShip.size));       
+      }
+      count++;     
       this.gameboard.placeShip(row, column, ship, fleetDirection); 
     }
     return true;    

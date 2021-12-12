@@ -9,19 +9,25 @@ menu.appendChild(startBtn);
 menu.classList.add("menu");
 UI.appendChild(menu);
 
+const gridContainer = document.createElement("div");
+gridContainer.classList.add("grid-container")
+
 const enemyGrid = document.createElement("div");
 enemyGrid.classList.add("enemy-grid");
-UI.appendChild(enemyGrid);
+gridContainer.appendChild(enemyGrid);
 const playerGrid = document.createElement("div");
 playerGrid.classList.add("player-grid");
-UI.appendChild(playerGrid);
+gridContainer.appendChild(playerGrid);
+UI.appendChild(gridContainer);
 
 
-
+const enemy = new Player();
 const player = new Player(  "fred" /* prompt("enter name") */);
+enemy.placeAllShips();
 player.placeAllShips();
+populateUIGrid(enemy.gameboard, enemyGrid);
 populateUIGrid(player.gameboard, playerGrid);
-console.log(player.gameboard.gameboard);
+
 
 function populateUIGrid( { gameboard }, gridToPopulate ) {
   
@@ -33,6 +39,7 @@ function populateUIGrid( { gameboard }, gridToPopulate ) {
 
       if(gameboard[r][c] === true){
         cell.classList.add("ship");
+        cell.innerHTML = "O";
       }
       
       gridToPopulate.appendChild(cell);

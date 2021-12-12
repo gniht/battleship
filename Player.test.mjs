@@ -10,8 +10,10 @@ test("all ships are placed before game starts", () => {
   expect(player.placeAllShips()).toBe(true);
 });
 
-test("can make an attack", () => {
-  const player = new Player();
+test("can make an attack (this might occasionally fail)", () => {
+  const player = new Player( "fred" );
+  const enemy = new Player()
   player.placeAllShips();
-  expect(player.makeAttack()).toBe(true);
+  enemy.placeAllShips();
+  expect(player.makeAttack(enemy, [4,0])).toBe(true);
 });

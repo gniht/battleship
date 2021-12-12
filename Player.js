@@ -29,9 +29,15 @@ class Player {
     }
     return true;    
   }
-  makeAttack(targetLocation){
-    
-    return true;    
+  makeAttack(targetPlayer, targetLocation){
+    return targetPlayer.gameboard.receiveAttack(targetLocation[0], targetLocation[1]);
+        
+  }
+
+  randomAttackVector(){
+    let randRow = Math.floor(Math.random()*10);
+    let randCol = Math.floor(Math.random()*10);
+    return [randRow, randCol];    
   }
 }
 

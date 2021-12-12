@@ -23,7 +23,7 @@ class Player {
         column = Math.floor(Math.random()*(9-currentShip.size));       
       }
       count++;
-      count += (Math.floor(Math.random()*2));
+      count += Math.floor(Math.random()*2);
 
       this.gameboard.placeShip(row, column, ship, fleetDirection); 
     }

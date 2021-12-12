@@ -17,3 +17,25 @@
   width: 100vw;
 }
 
+.cell {
+  background-color: blue;    
+  width: 10%;
+  height: 10%;  
+}
+
+.enemy-grid {
+  display: flex;
+  
+}
+.player-grid {  
+  width: 40vw;
+  height: 40vw;
+  display: flex;
+  flex-wrap: wrap; 
+    
+}
+
+.ship {
+  background-color: lightgray;
+}
+

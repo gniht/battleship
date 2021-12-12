@@ -20,6 +20,7 @@
 .cell {
   display: flex;
   justify-content: center;
+  align-items: center;
   background-color: blue;    
   width: 10%;
   height: 10%;
@@ -41,12 +42,22 @@
   flex-wrap: wrap;    
 }
 
-.ship {  align-items: center;
+.ship {
   background-color: grey;
 }
 
 .grid-container {
   display: flex;
   margin: 10px;
+}
+
+.hit {
+  background-color: coral;
+  color: red;
+}
+
+.miss {
+  background-color: rgb(107, 107, 196);
+  color: blue;
 }
 

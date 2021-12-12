@@ -28,6 +28,19 @@ player.placeAllShips();
 populateUIGrid(enemy.gameboard, enemyGrid);
 populateUIGrid(player.gameboard, playerGrid);
 
+enemyGrid.addEventListener("click", e => {  
+  e.preventDefault();
+  e.stopPropagation();
+  if(e.target.innerHTML === "O"){
+    e.target.classList.add("hit");
+    e.target.innerHTML = "X";    
+  }else if (e.target.innerHTML !== "X"){
+    e.target.classList.add("miss");
+    e.target.innerHTML = "X";
+  }
+  
+});
+
 
 function populateUIGrid( { gameboard }, gridToPopulate ) {
   
@@ -40,8 +53,7 @@ function populateUIGrid( { gameboard }, gridToPopulate ) {
       if(gameboard[r][c] === true){
         cell.classList.add("ship");
         cell.innerHTML = "O";
-      }
-      
+      }      
       gridToPopulate.appendChild(cell);
     }    
   }

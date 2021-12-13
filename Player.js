@@ -4,6 +4,7 @@ class Player {
   constructor( name = "HAL 9000") {
     this.name = name;
     this.gameboard = new Gameboard();
+    this.attempts = [];
   }
 
   placeAllShips(){
@@ -30,13 +31,26 @@ class Player {
     return true;    
   }
   makeAttack(targetPlayer, targetLocation){
-    return targetPlayer.gameboard.receiveAttack(targetLocation[0], targetLocation[1]);
-        
+    return targetPlayer.gameboard.receiveAttack(targetLocation[0], targetLocation[1]);        
   }
 
-  randomAttackVector(){
+  randomAttackVector(){    
     let randRow = Math.floor(Math.random()*10);
     let randCol = Math.floor(Math.random()*10);
+    while(this.attempts.some( coords => {
+      return (coords[0] == randRow) && (coords[1] == randCol);
+    }
+
+    )){
+      console.log("duplicate!")
+      randRow = Math.floor(Math.random()*10);
+      randCol = Math.floor(Math.random()*10);
+    }
+    
+      
+             
+       
+    this.attempts.push([randRow, randCol]);
     return [randRow, randCol];    
   }
 }

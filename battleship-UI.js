@@ -38,9 +38,13 @@ enemyGrid.addEventListener("click", e => {
 
   player.makeAttack(enemy, coordinates);  
   enemy.makeAttack(player, enemy.randomAttackVector());
+  while(playerGrid.firstChild){
+    playerGrid.removeChild(playerGrid.firstChild);
+  }
+  updateUIGrid(player, playerGrid);
 
   if(enemy.gameboard.receiveAttack(coordinates[0], coordinates[1])){
-    console.log(e.target.innerHTML || "nothing");
+    
     e.target.classList.add("hit");
     e.target.innerHTML = "X";     
   }
@@ -55,6 +59,8 @@ enemyGrid.addEventListener("click", e => {
 });
 
 function updateUIGrid( playerInfo, gridToPopulate ) {
+  // r indicates row, c indicates column.
+  // the comma-separated coordinates are encoded as the element ID.
   
   for( let r = 0; r < 10; r++ ){
     for( let c = 0; c < 10; c++ ){      

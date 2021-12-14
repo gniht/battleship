@@ -12,8 +12,8 @@ class Player {
     
     let row = 0;
     let column = 0;
-    let count = 0;
-           
+    let count = Math.floor(Math.random()*2);
+
     for(let ship in this.gameboard.ships){
       const currentShip = this.gameboard.ships[ship];
 

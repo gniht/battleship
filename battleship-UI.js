@@ -5,12 +5,22 @@ const startBtn = document.querySelector(".start-btn");
 const enemyGrid = document.querySelector(".enemy-grid");
 const playerGrid = document.querySelector(".player-grid");
 
-const enemy = new Player();
-const player = new Player(  "fred" /* prompt("enter name") */);
-enemy.placeAllShips();
-player.placeAllShips();
-updateUIGrid(enemy, enemyGrid);
-updateUIGrid(player, playerGrid);
+let enemy; 
+let player; 
+
+startBtn.addEventListener("click", (e) =>{
+  e.preventDefault();
+  e.stopPropagation();
+
+  enemy = new Player();
+  player = new Player(  "fred" /* prompt("enter name") */);
+
+  enemy.placeAllShips();
+  player.placeAllShips();
+
+  updateUIGrid(enemy, enemyGrid);
+  updateUIGrid(player, playerGrid);
+});
 
 enemyGrid.addEventListener("click", e => {  
   e.preventDefault();

@@ -26,27 +26,16 @@ enemyGrid.addEventListener("click", e => {
   e.preventDefault();
   e.stopPropagation();   
   let coordinates = e.target.id.split(",");
-
   
   if(e.target.innerHTML === "X"){
     alert("Redundant attack!");
     return;
-  }
-
-  
+  }  
   const playerAttack = player.makeAttack(enemy, coordinates);  
   const enemyAttack = enemy.makeAttack(player, enemy.randomAttackVector());
-
   
   updateUIGrid(enemy, enemyGrid);
   updateUIGrid(player, playerGrid);
-
-  if(enemy.gameboard.gameboard[coordinates[0]][coordinates[1]] === -1 ){
-    
-    e.target.classList.add("hit");
-    e.target.innerHTML = "X";     
-  }
-  
 });
 
 function updateUIGrid( playerInfo, gridToPopulate ) {

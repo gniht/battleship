@@ -18,26 +18,25 @@
 }
 
 .cell {
+  border: 1px solid black;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: blue;    
-  width: 10%;
-  height: 10%;
+  width: 43px;
+  height: 43px;
     
 }
 
-.enemy-grid {
-  margin: 10px;
-  width: 40vw;
-  height: 40vw;
+.enemy-grid {  
+  width: 450px;
+  height: 450px;
   display: flex;
   flex-wrap: wrap;  
 }
-.player-grid {
-  margin: 10px;  
-  width: 40vw;
-  height: 40vw;
+.player-grid {   
+  width: 450px;
+  height: 450px;
   display: flex;
   flex-wrap: wrap;    
 }
@@ -48,7 +47,7 @@
 
 .grid-container {
   display: flex;
-  margin: 10px;
+  justify-content: space-around; 
 }
 
 .hit {
@@ -60,4 +59,12 @@
   background-color: rgb(107, 107, 196);
   color: blue;
 }
+
+.headings {
+  display: flex;
+  justify-content: space-around;
+  margin: 10px;  
+}
+
+
 

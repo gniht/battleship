@@ -32,7 +32,7 @@ class Gameboard {
     }
 
     if(target === 0){
-      this.gameboard[row][column] = -1
+      this.gameboard[row][column] = -1;
       return false;
     }
 
@@ -40,6 +40,7 @@ class Gameboard {
       this.gameboard[row][column] = false;
       for(let ship in this.ships){        
         if(this.ships[ship].hullIntegrity.includes([row, column])){
+          // todo: verify includes works as intended.
           this.ships[ship].hit([row, column])
           console.log(`Direct hit on enemy ${ship}!`);
         }
@@ -47,6 +48,7 @@ class Gameboard {
     }
     return  target !== 0;    
   }
+
   placeShip(row, column, shipName, orientation = 'horizontal') {
     const ship = this.ships[shipName];       
     const size = ship.size;

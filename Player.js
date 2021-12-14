@@ -31,7 +31,9 @@ class Player {
     return true;    
   }
   makeAttack(targetPlayer, targetLocation){
-    return targetPlayer.gameboard.receiveAttack(targetLocation[0], targetLocation[1]);        
+    let result = targetPlayer.gameboard.receiveAttack(targetLocation[0], targetLocation[1]);
+        
+    return result;        
   }
 
   randomAttackVector(){    
@@ -40,15 +42,11 @@ class Player {
     while(this.attempts.some( coords => {
       return (coords[0] == randRow) && (coords[1] == randCol);
     }
-
     )){
       console.log("duplicate!")
       randRow = Math.floor(Math.random()*10);
       randCol = Math.floor(Math.random()*10);
-    }
-    
-      
-             
+    }            
        
     this.attempts.push([randRow, randCol]);
     return [randRow, randCol];    

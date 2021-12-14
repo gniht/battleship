@@ -28,9 +28,10 @@ enemyGrid.addEventListener("click", e => {
   let coordinates = e.target.id.split(",");
 
   
-  // if(e.target.innerHTML === "X"){
-  //   alert("Redundant attack!");
-  // }
+  if(e.target.innerHTML === "X"){
+    alert("Redundant attack!");
+    return;
+  }
 
   
   const playerAttack = player.makeAttack(enemy, coordinates);  
@@ -59,14 +60,21 @@ function updateUIGrid( playerInfo, gridToPopulate ) {
   
   for( let r = 0; r < 10; r++ ){
     for( let c = 0; c < 10; c++ ){      
-      let cell = document.createElement("div");      
+      const cell = document.createElement("div");      
       cell.classList.add("cell");
-      cell.id = `${r},${c}`;
+      cell.id = `${r},${c}`;      
+      let cellData = playerInfo.gameboard.gameboard[r][c]; 
 
-      if( playerInfo.gameboard.gameboard[r][c] === true && playerInfo.name !== "HAL 9000" ){
+      if( cellData === true && playerInfo.name !== "HAL 9000" ){
         cell.classList.add("ship");
         cell.innerHTML = "O";
-      }      
+      }else if( cellData === false ){
+        cell.classList.add("hit");
+        cell.innerHTML = "X";
+      }else if( cellData === -1){
+        cell.classList.add("miss");
+        cell.innerHTML = "X";
+      }    
       gridToPopulate.appendChild(cell);
     }    
   }

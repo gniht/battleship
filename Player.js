@@ -32,8 +32,7 @@ class Player {
     return true;    
   }
   makeAttack(targetPlayer, targetLocation){
-    let result = targetPlayer.gameboard.receiveAttack(targetLocation[0], targetLocation[1]);
-        
+    let result = targetPlayer.gameboard.receiveAttack(targetLocation[0], targetLocation[1]);        
     return result;        
   }
 

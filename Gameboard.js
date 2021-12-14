@@ -46,7 +46,7 @@ class Gameboard {
         }
       }
     }
-    return  target;    
+    return target;    
   }
 
   placeShip(row, column, shipName, orientation = 'horizontal') {

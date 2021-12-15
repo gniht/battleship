@@ -10,6 +10,14 @@ test("all ships are placed before game starts", () => {
   expect(player.placeAllShips()).toBe(true);
 });
 
+test("can make an attack", () => {
+  const player = new Player( "fred" );
+  const enemy = new Player()
+  player.placeAllShips();
+  enemy.placeAllShips();
+  expect(player.makeAttack(enemy, enemy.gameboard.ships["battleship"].hullIntegrity[0])).toBe(true);
+});
+
 test("a strategic options don't exist before hits occur", () => {
   const player = new Player();
   const enemy = new Player();
@@ -17,10 +25,12 @@ test("a strategic options don't exist before hits occur", () => {
   expect(enemy.strategicVolley(player)).toBe(false);
 });
 
-test("can make an attack (this should fail roughly half the time)", () => {
-  const player = new Player( "fred" );
-  const enemy = new Player()
-  player.placeAllShips();
-  enemy.placeAllShips();
-  expect(player.makeAttack(enemy, [4,0])).toBe(true);
+test("once a hit has occured, strategic options exist", () => {
+  const player = new Player();
+  const enemy = new Player();
+  player.placeAllShips();  
+  enemy.makeAttack(player, player.gameboard.ships["battleship"].hullIntegrity[0]);
+  console.log(enemy.strategicVolley(player));
+  expect(typeOf(enemy.strategicVolley(player))).toBe(Array);
 });
+

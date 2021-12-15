@@ -34,7 +34,8 @@ class Player {
     return true;    
   }
   makeAttack(targetPlayer, targetLocation){    
-    this.lastAttack = targetPlayer.gameboard.receiveAttack(targetLocation[0], targetLocation[1]);           
+    this.lastAttack = targetPlayer.gameboard.receiveAttack(targetLocation[0], targetLocation[1]);
+    this.attempts.push([targetLocation[0], targetLocation[1]]);           
     return this.lastAttack;        
   }
 
@@ -45,7 +46,7 @@ class Player {
       return this.strategicOptions.pop();
      // if a hit succeeds, catalog strategic options 
     }else if(this.lastAttack === true){ 
-      let lastAttackVector = this.attempts[this.attempts.length -1];
+      let lastAttackVector = this.attempts[this.attempts.length -1];      
       const up = lastAttackVector[0] > 0 ? [lastAttackVector[0] - 1, lastAttackVector[1]] : false;
       // todo: once working, refactor to remove redundant code
       if(up && (targetPlayer.gameboard.gameboard[up[0]][up[1]] !== -1 ) && 

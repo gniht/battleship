@@ -35,7 +35,10 @@ class Player {
   }
   makeAttack(targetPlayer, targetLocation){    
     this.lastAttack = targetPlayer.gameboard.receiveAttack(targetLocation[0], targetLocation[1]);
-    this.attempts.push([targetLocation[0], targetLocation[1]]);           
+    this.attempts.push([targetLocation[0], targetLocation[1]]);
+    if(this.lastAttack){
+      this.strategicVolley(targetPlayer);
+    }           
     return this.lastAttack;        
   }
 

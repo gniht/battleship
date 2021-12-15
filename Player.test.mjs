@@ -28,9 +28,8 @@ test("a strategic options don't exist before hits occur", () => {
 test("once a hit has occured, strategic options exist", () => {
   const player = new Player();
   const enemy = new Player();
-  player.placeAllShips();  
-  enemy.makeAttack(player, player.gameboard.ships["battleship"].hullIntegrity[0]);
-  console.log(enemy.strategicVolley(player));
-  expect(typeOf(enemy.strategicVolley(player))).toBe(Array);
+  player.placeAllShips();   
+  enemy.makeAttack(player, player.gameboard.ships["battleship"].hullIntegrity[0]);  
+  expect(enemy.strategicOptions.length >= 1).toBe(true);
 });
 

@@ -31,8 +31,14 @@ enemyGrid.addEventListener("click", e => {
     alert("Redundant attack!");
     return;
   }  
-  const playerAttack = player.makeAttack(enemy, coordinates);  
+  const playerAttack = player.makeAttack(enemy, coordinates);
+  if(playerAttack){
+    alert("you hit an enemy ship!");
+  }  
   const enemyAttack = enemy.makeAttack(player, enemy.randomAttackVector());
+  if(enemyAttack){
+    alert("one of your ships was hit!");
+  }
   
   updateUIGrid(enemy, enemyGrid);
   updateUIGrid(player, playerGrid);

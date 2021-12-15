@@ -1,4 +1,4 @@
-import hasCoordinates from "./hasCoordinates.js";
+
 
 class Ship {
   constructor( size ) {

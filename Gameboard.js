@@ -71,6 +71,14 @@ class Gameboard {
         ship.hullIntegrity[i] = [row+i, column];
       }
     }   
+  }
+  hasShipsRemaining(){
+    for(let ship in this.ships){
+      if(!this.ships[ship].isSunk()){
+        return true;        
+      }
+    }
+    return false;
   }  
 }
 

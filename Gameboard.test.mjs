@@ -29,5 +29,11 @@ test("position of Ship placement is valid", () => {
   expect(gameboard.placeShip(9, 9, "carrier")).toBe(false);
 });
 
+test("a new gameboard has ships remaining", () => {
+  const gameboard = new Gameboard(); 
+  gameboard.placeShip(0, 0, "carrier");  
+  expect(gameboard.hasShipsRemaining()).toBe(true);
+});
+
 
 

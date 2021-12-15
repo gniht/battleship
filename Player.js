@@ -33,10 +33,13 @@ class Player {
     }
     return true;    
   }
-  makeAttack(targetPlayer, targetLocation){    
+  makeAttack(targetPlayer, targetLocation){
     this.lastAttack = targetPlayer.gameboard.receiveAttack(targetLocation[0], targetLocation[1]);
-    this.attempts.push([targetLocation[0], targetLocation[1]]);
-    this.catalogStrategicOptions(targetPlayer);              
+    this.attempts.push([targetLocation[0], targetLocation[1]]);    
+    if(this.lastAttack){
+      // todo: figure out why this line mucks with the output
+      this.catalogStrategicOptions(targetPlayer);
+    }                  
     return this.lastAttack;        
   }
 
@@ -56,8 +59,7 @@ class Player {
       lastAttackVector = this.attempts[this.attempts.length -1];
     }else{
       return;
-    }
-        
+    }        
     const up = lastAttackVector[0] > 0 ? [lastAttackVector[0] - 1, lastAttackVector[1]] : false;
     // todo: once working, refactor to remove redundant code
     if(up && (targetPlayer.gameboard.gameboard[up[0]][up[1]] !== -1 ) && 

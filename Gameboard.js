@@ -26,8 +26,7 @@ class Gameboard {
   receiveAttack(row, column) {
     const target = this.gameboard[row][column];
         
-    if(target === false || target === -1){
-      //do something to prevent firing at spots that have already been hit?      
+    if(target === false || target === -1){           
       return -1;
     }
 
@@ -42,9 +41,7 @@ class Gameboard {
         const hullInfo = this.ships[ship].hullIntegrity;       
           for(let section of hullInfo){
             if( section[0] === row && section[1] === column){
-              this.ships[ship].hit([row, column]);              
-              if( this.ships[ship].isSunk() ){                
-              } 
+              this.ships[ship].hit([row, column]);  
             }
           }                   
         }

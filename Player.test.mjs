@@ -10,6 +10,13 @@ test("all ships are placed before game starts", () => {
   expect(player.placeAllShips()).toBe(true);
 });
 
+test("a strategic options don't exist before hits occur", () => {
+  const player = new Player();
+  const enemy = new Player();
+  player.placeAllShips();
+  expect(enemy.strategicVolley(player)).toBe(false);
+});
+
 test("can make an attack (this should fail roughly half the time)", () => {
   const player = new Player( "fred" );
   const enemy = new Player()

@@ -5,6 +5,8 @@ class Player {
     this.name = name;
     this.gameboard = new Gameboard();
     this.attempts = [];
+    this.lastAttack = false;
+    this.strategicOptions = [];
   }
 
   placeAllShips(){
@@ -31,23 +33,56 @@ class Player {
     }
     return true;    
   }
-  makeAttack(targetPlayer, targetLocation){
-    let result = targetPlayer.gameboard.receiveAttack(targetLocation[0], targetLocation[1]);        
-    return result;        
+  makeAttack(targetPlayer, targetLocation){    
+    this.lastAttack = targetPlayer.gameboard.receiveAttack(targetLocation[0], targetLocation[1]);           
+    return this.lastAttack;        
   }
 
+  strategicVolley(targetPlayer){
+    // use this for improved AI targetting
+    // if previously identified options remain, exhaust them
+    if(this.strategicOptions.length > 0){
+      return this.strategicOptions.pop();
+     // if a hit succeeds, catalog strategic options 
+    }else if(this.lastAttack === true){ 
+      let lastAttackVector = this.attempts[this.attempts.length -1];
+      const up = lastAttackVector[0] > 0 ? [lastAttackVector[0] - 1, lastAttackVector[1]] : false;
+      // todo: once working, refactor to remove redundant code
+      if(up && (targetPlayer.gameboard.gameboard[up[0]][up[1]] !== -1 ) && 
+        (targetPlayer.gameboard.gameboard[up[0]][up[1]] !== false)){
+        this.strategicOptions.push(up);
+      }
+      const down = lastAttackVector[0] < 9 ? [lastAttackVector[0] + 1, lastAttackVector[1]] : false;
+      if(down && (targetPlayer.gameboard.gameboard[down[0]][down[1]] !== -1 ) && 
+        (targetPlayer.gameboard.gameboard[down[0]][down[1]] !== false)){
+        this.strategicOptions.push(down);
+      }
+      const left = lastAttackVector[0] > 0 ? [lastAttackVector[0] - 1, lastAttackVector[1]] : false;
+      if(left && (targetPlayer.gameboard.gameboard[left[0]][left[1]] !== -1 ) && 
+        (targetPlayer.gameboard.gameboard[left[0]][left[1]] !== false)){
+        this.strategicOptions.push(left);
+      }      
+      const right = lastAttackVector[1] < 9 ? [lastAttackVector[0], lastAttackVector[1] + 1] : false;
+      if(right && (targetPlayer.gameboard.gameboard[right[0]][right[1]] !== -1 ) && 
+        (targetPlayer.gameboard.gameboard[right[0]][right[1]] !== false)){
+        this.strategicOptions.push(right);
+      } 
+    }else{
+      return false;
+    }    
+  }
+  
   randomAttackVector(){    
     let randRow = Math.floor(Math.random()*10);
     let randCol = Math.floor(Math.random()*10);
-    while(this.attempts.some( coords => {
+    // reroll if random vector was previously attempted
+    while(this.attempts.some( coords => {  
       return (coords[0] == randRow) && (coords[1] == randCol);
     }
-    )){
-      console.log("duplicate!")
+    )){      
       randRow = Math.floor(Math.random()*10);
       randCol = Math.floor(Math.random()*10);
-    }            
-       
+    }  
     this.attempts.push([randRow, randCol]);
     return [randRow, randCol];    
   }

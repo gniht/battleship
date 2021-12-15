@@ -38,16 +38,24 @@ class Gameboard {
 
     if(target){
       this.gameboard[row][column] = false;
-      for(let ship in this.ships){        
-        if(this.ships[ship].hullIntegrity.includes([row, column])){
-          // todo: verify includes works as intended.
-          this.ships[ship].hit([row, column])
-          console.log(`Direct hit on enemy ${ship}!`);
+      for(let ship in this.ships){ 
+        const hullInfo = this.ships[ship].hullIntegrity;       
+          for(let section of hullInfo){
+            if( section[0] === row && section[1] === column){
+              this.ships[ship].hit([row, column]);
+              console.log(`Direct hit on enemy ${ship}!`);
+              if( this.ships[ship].isSunk() ){
+                console.log(`${ship} falls below the waves!`);
+              } 
+            }
+          }
+                   
         }
       }
+      return target; 
     }
-    return target;    
-  }
+       
+  
 
   placeShip(row, column, shipName, orientation = 'horizontal') {
     const ship = this.ships[shipName];       

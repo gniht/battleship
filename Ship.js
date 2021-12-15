@@ -1,3 +1,4 @@
+import hasCoordinates from "./hasCoordinates.js";
 
 class Ship {
   constructor( size ) {
@@ -5,20 +6,28 @@ class Ship {
     this.hullIntegrity = [];
     for(let i = 0; i < size; i++){
       this.hullIntegrity.push(true);
-    }    
+    }        
   }
   
   hit( hitLocation ) {
     // should return true if hit succeeds otherwise false
-    if(this.hullIntegrity.includes(hitLocation)){
-      this.hullIntegrity[this.hullIntegrity.indexOf(hitLocation)] = false;
-      return true;
-    }    
+    for(let i = 0; i < this.hullIntegrity.length; i++){
+      if( this.hullIntegrity[i][0] === hitLocation[0] &&
+          this.hullIntegrity[i][1] === hitLocation[1] ){
+            this.hullIntegrity[i] = false;
+            return true;
+          }
+    }
     return false;
   }
 
-  isSunk(){    
-    return !this.hullIntegrity.includes(true);    
+  isSunk(){       
+    for(let i = 0; i < this.hullIntegrity.length; i++){
+      if( this.hullIntegrity[i] !== false ){
+        return false;
+      }
+    }
+    return true;    
   }
 }
 

@@ -7,17 +7,21 @@ test("a new ship isSunk?", ()=>{
 
 test("a ship that is hit registers damage", ()=>{
   const testShip = new Ship(1);
-  expect(testShip.hit(true)).toBe(true);  
+  testShip.hullIntegrity[0] = [0, 0];
+  expect(testShip.hit([0, 0])).toBe(true);  
 });
 
 test("a ship that has taken all hits is sunk", ()=>{
-  const testShip = new Ship(1);    
-  testShip.hit(true);  
+  const testShip = new Ship(1);
+  testShip.hullIntegrity[0] = [0, 0];    
+  testShip.hit([0, 0]);  
   expect(testShip.isSunk()).toBe(true);  
 });
 
 test("a ship that has taken hits, but not all hits is not sunk", ()=>{
   const testShip = new Ship(2);
-  testShip.hit(2);  
+  testShip.hullIntegrity[0] = [0, 0];
+  testShip.hullIntegrity[1] = [0, 1];
+  testShip.hit([0, 0]);  
   expect(testShip.isSunk()).toBe(false);  
 });

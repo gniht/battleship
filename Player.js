@@ -36,9 +36,7 @@ class Player {
   makeAttack(targetPlayer, targetLocation){    
     this.lastAttack = targetPlayer.gameboard.receiveAttack(targetLocation[0], targetLocation[1]);
     this.attempts.push([targetLocation[0], targetLocation[1]]);
-    if(this.lastAttack){
-      this.strategicVolley(targetPlayer);
-    }           
+    this.catalogStrategicOptions(targetPlayer);              
     return this.lastAttack;        
   }
 
@@ -46,35 +44,43 @@ class Player {
     // use this for improved AI targetting
     // if previously identified options remain, exhaust them
     if(this.strategicOptions.length > 0){
-      return this.strategicOptions.pop();
-     // if a hit succeeds, catalog strategic options 
-    }else if(this.lastAttack === true){ 
-      let lastAttackVector = this.attempts[this.attempts.length -1];      
-      const up = lastAttackVector[0] > 0 ? [lastAttackVector[0] - 1, lastAttackVector[1]] : false;
-      // todo: once working, refactor to remove redundant code
-      if(up && (targetPlayer.gameboard.gameboard[up[0]][up[1]] !== -1 ) && 
-        (targetPlayer.gameboard.gameboard[up[0]][up[1]] !== false)){
-        this.strategicOptions.push(up);
-      }
-      const down = lastAttackVector[0] < 9 ? [lastAttackVector[0] + 1, lastAttackVector[1]] : false;
-      if(down && (targetPlayer.gameboard.gameboard[down[0]][down[1]] !== -1 ) && 
-        (targetPlayer.gameboard.gameboard[down[0]][down[1]] !== false)){
-        this.strategicOptions.push(down);
-      }
-      const left = lastAttackVector[0] > 0 ? [lastAttackVector[0] - 1, lastAttackVector[1]] : false;
-      if(left && (targetPlayer.gameboard.gameboard[left[0]][left[1]] !== -1 ) && 
-        (targetPlayer.gameboard.gameboard[left[0]][left[1]] !== false)){
-        this.strategicOptions.push(left);
-      }      
-      const right = lastAttackVector[1] < 9 ? [lastAttackVector[0], lastAttackVector[1] + 1] : false;
-      if(right && (targetPlayer.gameboard.gameboard[right[0]][right[1]] !== -1 ) && 
-        (targetPlayer.gameboard.gameboard[right[0]][right[1]] !== false)){
-        this.strategicOptions.push(right);
-      } 
-    }else{
-      return false;
-    }    
+      return this.strategicOptions.pop();     
+    }
+    return false;
   }
+  
+  catalogStrategicOptions(targetPlayer){
+     
+    let lastAttackVector;
+    if(this.attempts.length > 0){
+      lastAttackVector = this.attempts[this.attempts.length -1];
+    }else{
+      return;
+    }
+        
+    const up = lastAttackVector[0] > 0 ? [lastAttackVector[0] - 1, lastAttackVector[1]] : false;
+    // todo: once working, refactor to remove redundant code
+    if(up && (targetPlayer.gameboard.gameboard[up[0]][up[1]] !== -1 ) && 
+      (targetPlayer.gameboard.gameboard[up[0]][up[1]] !== false)){
+      this.strategicOptions.push(up);
+    }
+    const down = lastAttackVector[0] < 9 ? [lastAttackVector[0] + 1, lastAttackVector[1]] : false;
+    if(down && (targetPlayer.gameboard.gameboard[down[0]][down[1]] !== -1 ) && 
+      (targetPlayer.gameboard.gameboard[down[0]][down[1]] !== false)){
+      this.strategicOptions.push(down);
+    }
+    const left = lastAttackVector[1] > 0 ? [lastAttackVector[0], lastAttackVector[1] - 1] : false;
+    if(left && (targetPlayer.gameboard.gameboard[left[0]][left[1]] !== -1 ) && 
+      (targetPlayer.gameboard.gameboard[left[0]][left[1]] !== false)){
+      this.strategicOptions.push(left);
+    }      
+    const right = lastAttackVector[1] < 9 ? [lastAttackVector[0], lastAttackVector[1] + 1] : false;
+    if(right && (targetPlayer.gameboard.gameboard[right[0]][right[1]] !== -1 ) && 
+      (targetPlayer.gameboard.gameboard[right[0]][right[1]] !== false)){
+      this.strategicOptions.push(right);
+    } 
+  }   
+  
   
   randomAttackVector(){    
     let randRow = Math.floor(Math.random()*10);

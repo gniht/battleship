@@ -1,6 +1,9 @@
 import Player from "./Player.js";
 
 let playerName = prompt("What shall we call you, admiral?");
+if(!playerName){
+  playerName = "no-name";
+}
 const playerAttackResults = document.querySelector(".player-attack-results");
 const enemyAttackResults = document.querySelector(".enemy-attack-results");
 
@@ -75,7 +78,7 @@ enemyGrid.addEventListener("click", e => {
     enemyAttackResults.innerText = `${enemy.name} inflicted a hit on one of our ships!`;
   }else{
     enemyAttackResults.classList.remove("attack-hit");
-    enemyAttackResults.innerText = `${enemy.name} fired on us but missed.`;    
+    enemyAttackResults.innerText = `${enemy.name} fired on us, but missed.`;    
   }  
   updateUIGrid(enemy, enemyGrid);
   updateUIGrid(player, playerGrid);

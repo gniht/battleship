@@ -1,4 +1,4 @@
-import Ship from "./Ship";
+import Ship from "../src/Ship";
 // const Ship = require('./Ship.js');
 
 test("a new ship isSunk?", ()=>{  

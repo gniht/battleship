@@ -1,4 +1,4 @@
-import Gameboard from "./Gameboard";
+import Gameboard from "../src/Gameboard";
 
 test("an attack on an empty cell returns false", () => {
   const gameboard = new Gameboard();

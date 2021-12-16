@@ -1,4 +1,4 @@
-import Player from "./Player";
+import Player from "../src/Player";
 
 test("a new player without a name is created with default name", () => {
   const player = new Player();

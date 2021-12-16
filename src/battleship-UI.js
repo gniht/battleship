@@ -1,5 +1,8 @@
 import Player from "./Player.js";
 
+let playerName = prompt("What shall we call you, admiral?");
+const playerAttackResults = document.querySelector(".player-attack-results");
+const enemyAttackResults = document.querySelector(".enemy-attack-results");
 
 const startBtn = document.querySelector(".start-btn");
 const difficultyBtn = document.querySelector(".difficulty-btn");
@@ -28,7 +31,7 @@ startBtn.addEventListener("click", (e) =>{
   e.stopPropagation();
 
   enemy = new Player();
-  player = new Player(  "fred" /* prompt("enter name") */);
+  player = new Player( playerName );
 
   enemy.placeAllShips();
   player.placeAllShips();
@@ -43,14 +46,17 @@ enemyGrid.addEventListener("click", e => {
   let coordinates = e.target.id.split(",");
   
   if(e.target.innerHTML === "X"){
-    alert("Redundant attack!");
+    playerAttackResults.innerText = "Redundant attack, choose a new target.";
     return;
   }  
   const playerAttack = player.makeAttack(enemy, coordinates);
   if(playerAttack){
-    alert("you hit an enemy ship!");
+    playerAttackResults.innerText = `Admiral ${playerName}, we landed a hit on an enemy vessel!`;
+  }else{
+    playerAttackResults.innerText = `Admiral ${playerName}, our attack missed.`;    
   }  
   let enemyAttack;
+  // use strategic volley if difficulty is 'challenging'
   if(isEasy){
     enemyAttack = enemy.makeAttack(player, enemy.randomAttackVector());
   }else{
@@ -63,9 +69,10 @@ enemyGrid.addEventListener("click", e => {
     
   } 
   if(enemyAttack){
-    alert("one of your ships was hit!");
-  }
-  
+    enemyAttackResults.innerText = `${enemy.name} inflicted a hit on one of our ships!`;
+  }else{
+    enemyAttackResults.innerText = `${enemy.name} fired on us but missed.`;    
+  }  
   updateUIGrid(enemy, enemyGrid);
   updateUIGrid(player, playerGrid);
 });

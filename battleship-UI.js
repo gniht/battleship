@@ -2,6 +2,7 @@ import Player from "./Player.js";
 
 
 const startBtn = document.querySelector(".start-btn");
+const difficultyBtn = document.querySelector(".difficulty-btn");
 const enemyGrid = document.querySelector(".enemy-grid");
 const playerGrid = document.querySelector(".player-grid");
 

@@ -55,32 +55,34 @@ class Player {
   catalogStrategicOptions(targetPlayer){
      
     let lastAttackVector;
-    if(this.attempts.length > 0){
+    if(this.attempts.length > 0 && this.lastAttack){
       lastAttackVector = this.attempts[this.attempts.length -1];
     }else{
-      return;
-    }        
-    const up = lastAttackVector[0] > 0 ? [lastAttackVector[0] - 1, lastAttackVector[1]] : false;
+      return false;
+    }
+           
+    const up = lastAttackVector[0] > 0 ? [parseInt(lastAttackVector[0], 10) - 1, parseInt(lastAttackVector[1], 10)] : false;
     // todo: once working, refactor to remove redundant code
     if(up && (targetPlayer.gameboard.gameboard[up[0]][up[1]] !== -1 ) && 
       (targetPlayer.gameboard.gameboard[up[0]][up[1]] !== false)){
       this.strategicOptions.push(up);
     }
-    const down = lastAttackVector[0] < 9 ? [lastAttackVector[0] + 1, lastAttackVector[1]] : false;
+    const down = lastAttackVector[0] < 9 ? [ parseInt(lastAttackVector[0], 10) + 1, parseInt(lastAttackVector[1], 10) ] : false;
     if(down && (targetPlayer.gameboard.gameboard[down[0]][down[1]] !== -1 ) && 
       (targetPlayer.gameboard.gameboard[down[0]][down[1]] !== false)){
       this.strategicOptions.push(down);
     }
-    const left = lastAttackVector[1] > 0 ? [lastAttackVector[0], lastAttackVector[1] - 1] : false;
+    const left = lastAttackVector[1] > 0 ? [parseInt(lastAttackVector[0], 10), parseInt(lastAttackVector[1], 10) - 1] : false;
     if(left && (targetPlayer.gameboard.gameboard[left[0]][left[1]] !== -1 ) && 
       (targetPlayer.gameboard.gameboard[left[0]][left[1]] !== false)){
       this.strategicOptions.push(left);
     }      
-    const right = lastAttackVector[1] < 9 ? [lastAttackVector[0], lastAttackVector[1] + 1] : false;
+    const right = lastAttackVector[1] < 9 ? [parseInt(lastAttackVector[0]), parseInt(lastAttackVector[1], 10) + 1] : false;
     if(right && (targetPlayer.gameboard.gameboard[right[0]][right[1]] !== -1 ) && 
       (targetPlayer.gameboard.gameboard[right[0]][right[1]] !== false)){
       this.strategicOptions.push(right);
-    } 
+    }
+    return true; 
   }   
   
   

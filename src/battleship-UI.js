@@ -51,8 +51,10 @@ enemyGrid.addEventListener("click", e => {
   }  
   const playerAttack = player.makeAttack(enemy, coordinates);
   if(playerAttack){
+    playerAttackResults.classList.add("attack-hit");
     playerAttackResults.innerText = `Admiral ${playerName}, we landed a hit on an enemy vessel!`;
   }else{
+    playerAttackResults.classList.remove("attack-hit");
     playerAttackResults.innerText = `Admiral ${playerName}, our attack missed.`;    
   }  
   let enemyAttack;
@@ -69,8 +71,10 @@ enemyGrid.addEventListener("click", e => {
     
   } 
   if(enemyAttack){
+    enemyAttackResults.classList.add("attack-hit");
     enemyAttackResults.innerText = `${enemy.name} inflicted a hit on one of our ships!`;
   }else{
+    enemyAttackResults.classList.remove("attack-hit");
     enemyAttackResults.innerText = `${enemy.name} fired on us but missed.`;    
   }  
   updateUIGrid(enemy, enemyGrid);

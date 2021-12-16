@@ -88,5 +88,20 @@
 .difficulty {
   background-color: blueviolet;  
 }
+.combat-notifications {
+  margin: 20px; 
+  display: flex;
+  justify-content: center;  
+  
+}
+.player-attack-results {
+  margin: 20px;  
+}
+.enemy-attack-results {
+  margin: 20px
+}
+.attack-hit {
+  color: red;
+}
 
 

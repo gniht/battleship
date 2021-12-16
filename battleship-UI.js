@@ -3,8 +3,22 @@ import Player from "./Player.js";
 
 const startBtn = document.querySelector(".start-btn");
 const difficultyBtn = document.querySelector(".difficulty-btn");
+const difficulty = document.querySelector(".difficulty");
+let isEasy = true;
 const enemyGrid = document.querySelector(".enemy-grid");
 const playerGrid = document.querySelector(".player-grid");
+
+difficultyBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  if(isEasy){
+    isEasy = false;
+    difficulty.innerText = "Challenging";
+  }else{
+    isEasy = true;
+    difficulty.innerText = "Easy";
+  }  
+});
 
 let enemy; 
 let player; 
@@ -36,7 +50,18 @@ enemyGrid.addEventListener("click", e => {
   if(playerAttack){
     alert("you hit an enemy ship!");
   }  
-  const enemyAttack = enemy.makeAttack(player, enemy.randomAttackVector());
+  let enemyAttack;
+  if(isEasy){
+    enemyAttack = enemy.makeAttack(player, enemy.randomAttackVector());
+  }else{
+    const stratVolleyVector = enemy.strategicVolley(player);
+    if(stratVolleyVector){
+      enemyAttack = enemy.makeAttack(player, stratVolleyVector);
+    }else{
+      enemyAttack = enemy.makeAttack(player, enemy.randomAttackVector());
+    }
+    
+  } 
   if(enemyAttack){
     alert("one of your ships was hit!");
   }

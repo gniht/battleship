@@ -36,8 +36,7 @@ class Player {
   makeAttack(targetPlayer, targetLocation){
     this.lastAttack = targetPlayer.gameboard.receiveAttack(targetLocation[0], targetLocation[1]);
     this.attempts.push([targetLocation[0], targetLocation[1]]);    
-    if(this.lastAttack){
-      // todo: figure out why this line mucks with the output
+    if(this.lastAttack){      
       this.catalogStrategicOptions(targetPlayer);
     }                  
     return this.lastAttack;        

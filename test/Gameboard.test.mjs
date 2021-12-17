@@ -1,4 +1,5 @@
 import Gameboard from "../src/Gameboard";
+import Ship from "../src/Ship";
 
 test("an attack on an empty cell returns false", () => {
   const gameboard = new Gameboard();
@@ -34,6 +35,17 @@ test("a new gameboard has ships remaining", () => {
   gameboard.placeShip(0, 0, "carrier");  
   expect(gameboard.hasShipsRemaining()).toBe(true);
 });
+
+test("properly identifies when all ships have been sunk", () => {
+  const gameboard = new Gameboard(); 
+  gameboard.ships = {    
+    test_dingy: new Ship(1)
+  }
+  gameboard.placeShip( 0, 0, "test_dingy" );
+  gameboard.receiveAttack( 0, 0);  
+  expect(gameboard.hasShipsRemaining()).toBe(false);
+});
+
 
 
 

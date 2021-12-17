@@ -95,8 +95,7 @@ class Player {
     )){      
       randRow = Math.floor(Math.random()*10);
       randCol = Math.floor(Math.random()*10);
-    }  
-    this.attempts.push([randRow, randCol]);
+    }    
     return [randRow, randCol];    
   }
 }

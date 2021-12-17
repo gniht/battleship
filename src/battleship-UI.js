@@ -45,17 +45,24 @@ startBtn.addEventListener("click", (e) =>{
 
 enemyGrid.addEventListener("click", e => {  
   e.preventDefault();
-  e.stopPropagation();   
-  let coordinates = e.target.id.split(",");
+  e.stopPropagation(); 
+
+  let coordinates = e.target.id.split(",");   
   
   if(e.target.innerHTML === "X"){
+    playerAttackResults.classList.remove("attack-hit");
     playerAttackResults.innerText = "Redundant attack, choose a new target.";
+    enemyAttackResults.innerText = "";
     return;
-  }  
-  const playerAttack = player.makeAttack(enemy, coordinates);
+  }
+  console.log(player.name + " attacks " + enemy.name + " at coordinates: " + coordinates);
+  console.log(enemy.gameboard.gameboard[coordinates[0]][coordinates[1]]);  
+  let playerAttack = player.makeAttack(enemy, coordinates);
+  console.log(enemy.gameboard.gameboard[coordinates[0]][coordinates[1]]);
   if(playerAttack){
-    playerAttackResults.classList.add("attack-hit");
+    playerAttackResults.classList.add("attack-hit");    
     playerAttackResults.innerText = `Admiral ${playerName}, we landed a hit on an enemy vessel!`;
+           
   }else{
     playerAttackResults.classList.remove("attack-hit");
     playerAttackResults.innerText = `Admiral ${playerName}, our attack missed.`;    
@@ -66,20 +73,37 @@ enemyGrid.addEventListener("click", e => {
     enemyAttack = enemy.makeAttack(player, enemy.randomAttackVector());
   }else{
     const stratVolleyVector = enemy.strategicVolley(player);
-    if(stratVolleyVector){
+    if(stratVolleyVector !== false){
       enemyAttack = enemy.makeAttack(player, stratVolleyVector);
     }else{
       enemyAttack = enemy.makeAttack(player, enemy.randomAttackVector());
-    }
-    
+    }    
   } 
   if(enemyAttack){
     enemyAttackResults.classList.add("attack-hit");
-    enemyAttackResults.innerText = `${enemy.name} inflicted a hit on one of our ships!`;
+    if(!player.gameboard.hasShipsRemaining()){      
+      enemyAttackResults.innerText = `We're going down!\n ${enemy.name} has sunk our entire fleet of ships!!!`;
+      return;
+    }      
   }else{
     enemyAttackResults.classList.remove("attack-hit");
     enemyAttackResults.innerText = `${enemy.name} fired on us, but missed.`;    
-  }  
+  }
+  
+  if(!player.gameboard.hasShipsRemaining()){
+    enemyAttackResults.classList.remove("attack-hit");
+    enemyAttackResults.innerText = 
+    `Enemy rockets are closing in on our position, Admiral ${player.name}.\n
+    ${enemy.name} has already sunk the rest of our fleet... \n
+    It's been an honor, Admiral.`;
+    return;
+  }
+  if(!enemy.gameboard.hasShipsRemaining()){
+    playerAttackResults.classList.add("attack-hit"); 
+    playerAttackResults.innerText = `We've eliminated the last of them!\n None of ${enemy.name}'s ships remain!!!`;
+    return;
+  }
+     
   updateUIGrid(enemy, enemyGrid);
   updateUIGrid(player, playerGrid);
 });

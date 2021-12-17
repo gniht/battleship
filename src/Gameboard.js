@@ -72,8 +72,11 @@ class Gameboard {
       }
     }   
   }
+  
   hasShipsRemaining(){
     for(let ship in this.ships){
+      console.log(`${ship} isSunk: ${this.ships[ship].isSunk()}`);
+      console.log(this.ships[ship]);     
       if(!this.ships[ship].isSunk()){
         return true;        
       }

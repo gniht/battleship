@@ -29,9 +29,7 @@ test("once a hit has occured, strategic options exist", () => {
   const player = new Player();
   const enemy = new Player();
   player.placeAllShips();
-  console.log("attack succeeds at: " + player.gameboard.ships["battleship"].hullIntegrity[0])   
   enemy.makeAttack(player, player.gameboard.ships["battleship"].hullIntegrity[0]);
-  console.log(enemy.strategicOptions);  
   expect(enemy.strategicOptions.length >= 1).toBe(true);
 });
 

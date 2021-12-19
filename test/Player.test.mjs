@@ -22,7 +22,7 @@ test("a strategic options don't exist before hits occur", () => {
   const player = new Player();
   const enemy = new Player();
   player.placeAllShips();
-  expect(enemy.strategicVolley(player)).toBe(false);
+  expect(enemy.strategicVector()).toBe(false);
 });
 
 test("once a hit has occured, strategic options exist", () => {

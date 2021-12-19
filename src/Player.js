@@ -33,6 +33,7 @@ class Player {
     }
     return true;    
   }
+
   makeAttack(targetPlayer, targetLocation){
     this.lastAttack = targetPlayer.gameboard.receiveAttack(targetLocation[0], targetLocation[1]);
     this.attempts.push([targetLocation[0], targetLocation[1]]);    
@@ -42,7 +43,7 @@ class Player {
     return this.lastAttack;        
   }
 
-  strategicVolley(targetPlayer){
+  strategicVector(){
     // use this for improved AI targetting
     // if previously identified options remain, exhaust them
     if(this.strategicOptions.length > 0){
@@ -51,8 +52,7 @@ class Player {
     return false;
   }
   
-  catalogStrategicOptions(targetPlayer){
-     
+  catalogStrategicOptions(targetPlayer){     
     let lastAttackVector;
     if(this.attempts.length > 0 && this.lastAttack){
       lastAttackVector = this.attempts[this.attempts.length -1];
@@ -82,8 +82,7 @@ class Player {
       this.strategicOptions.push(right);
     }
     return true; 
-  }   
-  
+  } 
   
   randomAttackVector(){    
     let randRow = Math.floor(Math.random()*10);
@@ -98,6 +97,9 @@ class Player {
     }    
     return [randRow, randCol];    
   }
+
+  damageReport(){}
+
 }
 
 export default Player;

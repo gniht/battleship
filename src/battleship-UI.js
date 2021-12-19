@@ -27,7 +27,8 @@ difficultyBtn.addEventListener("click", (e) => {
 });
 
 let enemy; 
-let player; 
+let player;
+let round; 
 
 startBtn.addEventListener("click", (e) =>{
   e.preventDefault();
@@ -35,6 +36,7 @@ startBtn.addEventListener("click", (e) =>{
 
   enemy = new Player();
   player = new Player( playerName );
+  round = 0;
 
   enemy.placeAllShips();
   player.placeAllShips();
@@ -55,10 +57,13 @@ enemyGrid.addEventListener("click", e => {
     enemyAttackResults.innerText = "";
     return;
   }
-  console.log(player.name + " attacks " + enemy.name + " at coordinates: " + coordinates);
-  console.log(enemy.gameboard.gameboard[coordinates[0]][coordinates[1]]);  
+  
+  round += 1;
+  console.log('enemy gameboard at coords PRIOR to attack: ' + enemy.gameboard.gameboard[coordinates[0]][coordinates[1]])
   let playerAttack = player.makeAttack(enemy, coordinates);
-  console.log(enemy.gameboard.gameboard[coordinates[0]][coordinates[1]]);
+  console.log('playerAttack: ' + playerAttack + ' at: ' + coordinates);
+  console.log('enemy gameboard at coords AFTER attack: ' + enemy.gameboard.gameboard[coordinates[0]][coordinates[1]]);
+
   if(playerAttack){
     playerAttackResults.classList.add("attack-hit");    
     playerAttackResults.innerText = `Admiral ${playerName}, we landed a hit on an enemy vessel!`;
@@ -72,7 +77,7 @@ enemyGrid.addEventListener("click", e => {
   if(isEasy){
     enemyAttack = enemy.makeAttack(player, enemy.randomAttackVector());
   }else{
-    const stratVolleyVector = enemy.strategicVolley(player);
+    const stratVolleyVector = enemy.strategicVector();
     if(stratVolleyVector !== false){
       enemyAttack = enemy.makeAttack(player, stratVolleyVector);
     }else{
@@ -81,26 +86,29 @@ enemyGrid.addEventListener("click", e => {
   } 
   if(enemyAttack){
     enemyAttackResults.classList.add("attack-hit");
-    if(!player.gameboard.hasShipsRemaining()){      
-      enemyAttackResults.innerText = `We're going down!\n ${enemy.name} has sunk our entire fleet of ships!!!`;
-      return;
-    }      
+    enemyAttackResults.innerText = `${enemy.name} has hit one of our ships!.`; 
   }else{
     enemyAttackResults.classList.remove("attack-hit");
     enemyAttackResults.innerText = `${enemy.name} fired on us, but missed.`;    
   }
-  
+  console.log(`round: ${round}`);
+  console.log(`enemy carrier: ${enemy.gameboard.ships['carrier'].hullIntegrity}`);
+  console.log(`player carrier: ${player.gameboard.ships['carrier'].hullIntegrity}`);
   if(!player.gameboard.hasShipsRemaining()){
-    enemyAttackResults.classList.remove("attack-hit");
+    enemyAttackResults.classList.add("attack-hit");
     enemyAttackResults.innerText = 
     `Enemy rockets are closing in on our position, Admiral ${player.name}.\n
     ${enemy.name} has already sunk the rest of our fleet... \n
     It's been an honor, Admiral.`;
+    updateUIGrid(enemy, enemyGrid);
+    updateUIGrid(player, playerGrid);
     return;
   }
   if(!enemy.gameboard.hasShipsRemaining()){
     playerAttackResults.classList.add("attack-hit"); 
     playerAttackResults.innerText = `We've eliminated the last of them!\n None of ${enemy.name}'s ships remain!!!`;
+    updateUIGrid(enemy, enemyGrid);
+    updateUIGrid(player, playerGrid);
     return;
   }
      
@@ -108,7 +116,9 @@ enemyGrid.addEventListener("click", e => {
   updateUIGrid(player, playerGrid);
 });
 
-function updateUIGrid( playerInfo, gridToPopulate ) {
+
+
+function updateUIGrid( playerInfo, gridToPopulate, debugMode = false ) {
   // r indicates row, c indicates column.
   // comma-separated coordinates are encoded as the element ID.
 
@@ -122,18 +132,21 @@ function updateUIGrid( playerInfo, gridToPopulate ) {
       const cell = document.createElement("div");      
       cell.classList.add("cell");
       cell.id = `${r},${c}`;      
-      let cellData = playerInfo.gameboard.gameboard[r][c]; 
-
-      if( cellData === true && playerInfo.name !== "HAL 9000" ){
-        cell.classList.add("ship");
-        cell.innerHTML = "O";
-      }else if( cellData === false ){
-        cell.classList.add("hit");
-        cell.innerHTML = "X";
-      }else if( cellData === -1){
-        cell.classList.add("miss");
-        cell.innerHTML = "X";
-      }    
+      let cellData = playerInfo.gameboard.gameboard[r][c];
+      if(debugMode){
+        cell.innerHTML = cellData;
+      }else{
+        if( cellData === true && playerInfo.name !== "HAL 9000" ){
+          cell.classList.add("ship");
+          cell.innerHTML = "O";
+        }else if( cellData === false ){
+          cell.classList.add("hit");
+          cell.innerHTML = "X";
+        }else if( cellData === -1){
+          cell.classList.add("miss");
+          cell.innerHTML = "X";
+        }
+      } 
       gridToPopulate.appendChild(cell);
     }    
   }

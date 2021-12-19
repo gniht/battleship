@@ -10,6 +10,7 @@
 }
 
 .menu {
+  margin-bottom: 20px;
   padding: 7px;
   display: flex;
   justify-content: center;
@@ -91,7 +92,7 @@
 .combat-notifications {
   margin: 20px; 
   display: flex;
-  justify-content: center;  
+  justify-content: space-around;  
   
 }
 .player-attack-results {
@@ -103,5 +104,18 @@
 .attack-hit {
   color: red;
 }
+.damage-report {
+  background-color:rgb(107, 107, 196);
+  color: aliceblue;
+}
+.report-section {
+  width: 450px;  
+}
 
-
+.br {
+  width: 100vw;
+  height: 3px;
+  margin-top: 45px;  
+  background-color: black;
+  color: black;  
+}

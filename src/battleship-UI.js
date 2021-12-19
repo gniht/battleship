@@ -112,7 +112,7 @@ enemyGrid.addEventListener("click", e => {
     return;
   }
      
-  updateUIGrid(enemy, enemyGrid);
+  updateUIGrid(enemy, enemyGrid, true);
   updateUIGrid(player, playerGrid);
 });
 

@@ -98,7 +98,20 @@ class Player {
     return [randRow, randCol];    
   }
 
-  damageReport(){}
+  damageReport(){
+    let report = "";
+    for(let ship in this.gameboard.ships){
+      const currentShip = this.gameboard.ships[ship];
+      if(currentShip.isSunk()){
+        report += `Our ${currentShip} has been sunk.\n`;
+      }else if(currentShip.hullIntegrity.some( hullSection => {
+        return hullSection === false;
+      })){
+        report += `Our ${currentShip} has suffered damage.\n`;
+      }
+    }
+    return report;
+  }
 
 }
 

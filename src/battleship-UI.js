@@ -6,6 +6,7 @@ if(!playerName){
 }
 const playerAttackResults = document.querySelector(".player-attack-results");
 const enemyAttackResults = document.querySelector(".enemy-attack-results");
+const damageReports = document.querySelector(".damage-report");
 
 const startBtn = document.querySelector(".start-btn");
 const difficultyBtn = document.querySelector(".difficulty-btn");
@@ -13,6 +14,8 @@ const difficulty = document.querySelector(".difficulty");
 let isEasy = true;
 const enemyGrid = document.querySelector(".enemy-grid");
 const playerGrid = document.querySelector(".player-grid");
+let gameOver;
+
 
 difficultyBtn.addEventListener("click", (e) => {
   e.preventDefault();
@@ -28,7 +31,6 @@ difficultyBtn.addEventListener("click", (e) => {
 
 let enemy; 
 let player;
-let round; 
 
 startBtn.addEventListener("click", (e) =>{
   e.preventDefault();
@@ -36,10 +38,11 @@ startBtn.addEventListener("click", (e) =>{
 
   enemy = new Player();
   player = new Player( playerName );
-  round = 0;
 
   enemy.placeAllShips();
   player.placeAllShips();
+
+  gameOver = false;
 
   updateUIGrid(enemy, enemyGrid);
   updateUIGrid(player, playerGrid);
@@ -47,23 +50,25 @@ startBtn.addEventListener("click", (e) =>{
 
 enemyGrid.addEventListener("click", e => {  
   e.preventDefault();
-  e.stopPropagation(); 
-
-  let coordinates = e.target.id.split(",");   
+  e.stopPropagation();
+  
+  if(gameOver){
+    return;
+  }
   
   if(e.target.innerHTML === "X"){
     playerAttackResults.classList.remove("attack-hit");
     playerAttackResults.innerText = "Redundant attack, choose a new target.";
     enemyAttackResults.innerText = "";
+    damageReports.innerHTML = player.damageReport();
     return;
   }
-  
-  round += 1;
-  console.log('enemy gameboard at coords PRIOR to attack: ' + enemy.gameboard.gameboard[coordinates[0]][coordinates[1]])
-  let playerAttack = player.makeAttack(enemy, coordinates);
-  console.log('playerAttack: ' + playerAttack + ' at: ' + coordinates);
-  console.log('enemy gameboard at coords AFTER attack: ' + enemy.gameboard.gameboard[coordinates[0]][coordinates[1]]);
 
+  const inputCoords = e.target.id.split(",");
+  const coordinates = [parseInt(inputCoords[0]), parseInt(inputCoords[1])]; 
+  
+  let playerAttack = player.makeAttack(enemy, coordinates);
+  
   if(playerAttack){
     playerAttackResults.classList.add("attack-hit");    
     playerAttackResults.innerText = `Admiral ${playerName}, we landed a hit on an enemy vessel!`;
@@ -78,7 +83,7 @@ enemyGrid.addEventListener("click", e => {
     enemyAttack = enemy.makeAttack(player, enemy.randomAttackVector());
   }else{
     const stratVolleyVector = enemy.strategicVector();
-    if(stratVolleyVector !== false){
+    if(stratVolleyVector){
       enemyAttack = enemy.makeAttack(player, stratVolleyVector);
     }else{
       enemyAttack = enemy.makeAttack(player, enemy.randomAttackVector());
@@ -91,17 +96,15 @@ enemyGrid.addEventListener("click", e => {
     enemyAttackResults.classList.remove("attack-hit");
     enemyAttackResults.innerText = `${enemy.name} fired on us, but missed.`;    
   }
-  console.log(`round: ${round}`);
-  console.log(`enemy carrier: ${enemy.gameboard.ships['carrier'].hullIntegrity}`);
-  console.log(`player carrier: ${player.gameboard.ships['carrier'].hullIntegrity}`);
   if(!player.gameboard.hasShipsRemaining()){
     enemyAttackResults.classList.add("attack-hit");
     enemyAttackResults.innerText = 
     `Enemy rockets are closing in on our position, Admiral ${player.name}.\n
     ${enemy.name} has already sunk the rest of our fleet... \n
-    It's been an honor, Admiral.`;
+    It has been an honor, Admiral.`;
     updateUIGrid(enemy, enemyGrid);
     updateUIGrid(player, playerGrid);
+    gameOver = true;
     return;
   }
   if(!enemy.gameboard.hasShipsRemaining()){
@@ -109,13 +112,13 @@ enemyGrid.addEventListener("click", e => {
     playerAttackResults.innerText = `We've eliminated the last of them!\n None of ${enemy.name}'s ships remain!!!`;
     updateUIGrid(enemy, enemyGrid);
     updateUIGrid(player, playerGrid);
+    gameOver = true;
     return;
   }
-     
-  updateUIGrid(enemy, enemyGrid, true);
+  damageReports.innerHTML = player.damageReport();   
+  updateUIGrid(enemy, enemyGrid);
   updateUIGrid(player, playerGrid);
 });
-
 
 
 function updateUIGrid( playerInfo, gridToPopulate, debugMode = false ) {

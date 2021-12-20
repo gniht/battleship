@@ -35,7 +35,7 @@ class Gameboard {
       return false;
     }
 
-    if(target){
+    if(target){      
       this.gameboard[row][column] = false;
       for(let ship in this.ships){ 
         const hullInfo = this.ships[ship].hullIntegrity;       
@@ -46,6 +46,7 @@ class Gameboard {
           }                   
         }
       }
+      
       return target; 
     } 
 

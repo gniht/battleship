@@ -6,7 +6,7 @@ class Player {
     this.gameboard = new Gameboard();
     this.attempts = [];
     this.lastAttack = false;
-    this.strategicOptions = [];
+    this.strategicOptions = [];    
   }
 
   placeAllShips(){
@@ -98,16 +98,24 @@ class Player {
     return [randRow, randCol];    
   }
 
+  getCoordinates(inputCoords){    
+    let row = inputCoords[0];
+    let column = inputCoords[1];
+
+    return [row, column];
+  }
+
   damageReport(){
-    let report = "";
+    let report = ``;
     for(let ship in this.gameboard.ships){
       const currentShip = this.gameboard.ships[ship];
       if(currentShip.isSunk()){
-        report += `Our ${currentShip} has been sunk.\n`;
+        report += `<p>Our ${ship} has been sunk.</p>`;
       }else if(currentShip.hullIntegrity.some( hullSection => {
         return hullSection === false;
       })){
-        report += `Our ${currentShip} has suffered damage.\n`;
+        report += `<p>Our ${ship} has suffered damage.</p>`;
+        report += `<p>${ship} hull: ${currentShip.hullIntegrity.toString()}</p>`;
       }
     }
     return report;

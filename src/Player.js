@@ -114,8 +114,14 @@ class Player {
       }else if(currentShip.hullIntegrity.some( hullSection => {
         return hullSection === false;
       })){
+        let hits = 0;
+        currentShip.hullIntegrity.forEach(hullSection => {
+          if(hullSection === false){
+            hits += 1;
+          }
+        });
         report += `<p>Our ${ship} has suffered damage.</p>`;
-        report += `<p>${ship} hull: ${currentShip.hullIntegrity.toString()}</p>`;
+        report += `<p>${ship} hull is at ${parseInt(100-(hits/currentShip.hullIntegrity.length)*100)}%</p>`;
       }
     }
     return report;
